@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملتمس أداء مصاريف ماستر 2APD على دفعتين</title>
+    <!-- Google Fonts: Cairo & Amiri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Local html2pdf for clean, header-less, footer-less direct PDF generation -->
+    <script src="html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #122b54;
+            --primary-hover: #0a1b38;
+            --border-dark: #334155;
+            --border-light: #cbd5e1;
+            --bg-page: #f4f6f9;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* Top Bar - Administrative Style (No AI gradients) */
+        .app-header {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-top: 4px solid var(--primary);
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .app-header-titles h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .app-header-titles p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 9px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.15s ease;
+            text-decoration: none;
+        }
+
+        .btn-pdf {
+            background-color: #991b1b;
+            color: #ffffff;
+            border-color: #7f1d1d;
+        }
+        .btn-pdf:hover {
+            background-color: #7f1d1d;
+        }
+
+        .btn-print {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: #0a1b38;
+        }
+        .btn-print:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-success {
+            background-color: #15803d;
+            color: #ffffff;
+            border-color: #166534;
+        }
+        .btn-success:hover {
+            background-color: #166534;
+        }
+
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-color: #cbd5e1;
+        }
+        .btn-secondary:hover {
+            background-color: #f1f5f9;
+        }
+
+        .btn-danger {
+            background-color: #ffffff;
+            color: #b91c1c;
+            border-color: #fca5a5;
+        }
+        .btn-danger:hover {
+            background-color: #fef2f2;
+        }
+
+        /* Official Letter Paper Document (Strict Paper Aesthetic) */
+        #officialDocumentWrapper {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            padding: 48px 45px;
+            margin-bottom: 24px;
+        }
+
+        /* Institutional Header with Enlarged Logos */
+        .institutional-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0f172a;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .header-logo {
+            height: 115px; /* Enlarged logo */
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+        }
+
+        .header-center-info {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .header-center-info .country-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 3px;
+        }
+
+        .header-center-info .univ-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+
+        .header-center-info .faculty-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+
+        .header-center-info .master-badge {
+            display: inline-block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #0f172a;
+            border: 1px solid #94a3b8;
+            padding: 3px 12px;
+            background: #f8fafc;
+        }
+
+        /* Letter Card Body */
+        .letter-content {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            line-height: 2.1;
+            color: #0f172a;
+        }
+
+        .letter-meta-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            background: #f8fafc;
+            padding: 14px 18px;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary);
+        }
+
+        .letter-subject {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-align: center;
+            color: #0f172a;
+            padding: 10px 16px;
+            background: #f8fafc;
+            margin: 20px 0;
+            border: 1.5px solid #0f172a;
+        }
+
+        .letter-body {
+            text-align: justify;
+            margin-bottom: 24px;
+        }
+
+        .installments-box {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            background: #f8fafc;
+            border: 1px solid #334155;
+            padding: 12px 18px;
+            margin: 16px 0;
+            color: #0f172a;
+        }
+
+        .installments-box ul {
+            list-style: none;
+            padding-right: 15px;
+            margin-top: 6px;
+        }
+
+        .installments-box li {
+            position: relative;
+            padding-right: 22px;
+            margin-bottom: 6px;
+        }
+
+        .installments-box li::before {
+            content: "—";
+            position: absolute;
+            right: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Signatures Section in Official Document */
+        .document-signatures-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .document-signatures-section h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 14px;
+        }
+
+        table.signatures-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.92rem;
+        }
+
+        table.signatures-table th {
+            background: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            white-space: nowrap;
+        }
+
+        table.signatures-table td {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            vertical-align: middle;
+        }
+
+        .sig-preview {
+            max-height: 44px;
+            max-width: 130px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .empty-signatures-notice {
+            text-align: center;
+            padding: 24px;
+            color: #94a3b8;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        /* Student Input Form */
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-top: 3px solid var(--primary);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-card h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .form-card p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .form-group input {
+            font-family: 'Cairo', sans-serif;
+            padding: 10px 12px;
+            border: 1px solid #94a3b8;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Canvas Signature Box */
+        .signature-wrapper {
+            margin-bottom: 18px;
+        }
+
+        .signature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .canvas-container {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #64748b;
+            border-radius: 4px;
+            touch-action: none;
+        }
+
+        #signaturePad {
+            width: 100%;
+            height: 170px;
+            display: block;
+            cursor: crosshair;
+        }
+
+        .canvas-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #94a3b8;
+            font-size: 0.95rem;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Notification */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: #0f172a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+        }
+
+        /* ================= CLEAN PRINT CSS ================= */
+        @page {
+            size: A4 portrait;
+            margin: 10mm 12mm 10mm 12mm;
+        }
+
+        @media print {
+            html, body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                color: black !important;
+            }
+
+            .no-print, .app-header, .action-bar, .form-card, .btn {
+                display: none !important;
+            }
+
+            #officialDocumentWrapper {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .header-logo {
+                height: 95px !important;
+            }
+
+            .letter-content {
+                font-size: 1.15rem !important;
+                line-height: 2 !important;
+            }
+
+            .letter-meta-grid {
+                background: transparent !important;
+                border: 1px solid #94a3b8 !important;
+                padding: 10px 14px !important;
+            }
+
+            .letter-subject {
+                background: #f8fafc !important;
+                border: 1.5px solid #000 !important;
+                color: #000 !important;
+                font-size: 1.1rem !important;
+                padding: 8px 12px !important;
+            }
+
+            .installments-box {
+                background: transparent !important;
+                border: 1px solid #64748b !important;
+                color: #000 !important;
+            }
+
+            table.signatures-table {
+                font-size: 0.85rem !important;
+                border: 1px solid #000 !important;
+            }
+
+            table.signatures-table th {
+                background: #f1f5f9 !important;
+                color: #000 !important;
+                border: 1px solid #000 !important;
+                padding: 6px 8px !important;
+            }
+
+            table.signatures-table td {
+                border: 1px solid #000 !important;
+                padding: 6px 8px !important;
+            }
+
+            .sig-preview {
+                max-height: 38px !important;
+            }
+        }
+
+        /* ================= MOBILE RESPONSIVE STYLES ================= */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 12px 8px;
+            }
+
+            .app-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 14px 16px;
+            }
+
+            .app-header-controls {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            #officialDocumentWrapper {
+                padding: 20px 14px;
+            }
+
+            .institutional-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+                padding-bottom: 15px;
+            }
+
+            .header-logo {
+                height: 65px;
+                max-width: 95px;
+            }
+
+            .header-center-info .country-title {
+                font-size: 0.92rem;
+            }
+
+            .header-center-info .univ-title {
+                font-size: 0.85rem;
+            }
+
+            .header-center-info .faculty-title {
+                font-size: 0.8rem;
+            }
+
+            .header-center-info .master-badge {
+                font-size: 0.72rem;
+                padding: 2px 6px;
+                margin-top: 4px;
+            }
+
+            .letter-content {
+                font-size: 1.08rem;
+                line-height: 1.85;
+            }
+
+            .letter-meta-grid {
+                flex-direction: column;
+                gap: 8px;
+                font-size: 0.88rem;
+            }
+
+            .letter-subject {
+                font-size: 1rem;
+                padding: 8px 10px;
+            }
+
+            .form-card {
+                padding: 18px 14px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .action-bar-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 11px 16px;
+                font-size: 0.92rem;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table.signatures-table {
+                min-width: 520px;
+            }
+        }
+
+        /* Admin Bar Banner */
+        .admin-notice-bar {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 8px 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Top App Banner (Screen Only) -->
+    <header class="app-header no-print">
+        <div class="app-header-titles">
+            <h1>منصة التوقيع الجماعي على ملتمس مصاريف التكوين</h1>
+            <p>ماستر التوقيت الميسر: Applied Economics, Artificial Intelligence & Policy Design (2APD)</p>
+        </div>
+        <div class="app-header-controls">
+            <div class="status-badge">
+                <span>عدد الطلبة الموقعين: </span>
+                <span id="signerCounter">0</span>
+            </div>
+            <button id="adminToggleBtn" class="btn btn-secondary" onclick="toggleAdminPrompt()" style="font-size: 0.82rem; padding: 6px 12px; margin-right: 8px;">
+                دخول المشرف (Admin)
+            </button>
+        </div>
+    </header>
+
+    <!-- Admin Notice Banner (Visible Only when Admin is Active) -->
+    <div id="adminNoticeBar" class="admin-notice-bar no-print" style="display: none;">
+        <span>تم تفعيل وضع المشرف: لديك صلاحية استخراج وثيقة الـ PDF وتصدير البيانات وحذف المدخلات.</span>
+        <button class="btn btn-secondary" onclick="logoutAdmin()" style="padding: 4px 10px; font-size: 0.8rem; background: #fff;">
+            تسجيل خروج
+        </button>
+    </div>
+
+    <!-- Controls & Action Bar (Protected: Only Visible in Admin Mode) -->
+    <div id="adminActionBar" class="action-bar no-print" style="display: none;">
+        <div class="action-bar-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-pdf" onclick="generateCleanPDF()">
+                تحميل وثيقة PDF رسمية (خالية من الروابط والعناوين)
+            </button>
+            <button class="btn btn-print" onclick="triggerCleanPrint()">
+                طباعة المستند
+            </button>
+            <button class="btn btn-secondary" onclick="exportDataJSON()">
+                تصدير اللائحة (JSON)
+            </button>
+            <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">
+                استيراد لائحة
+            </button>
+            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDataJSON(event)">
+        </div>
+
+        <button class="btn btn-danger" onclick="resetSignaturesPrompt()">
+            إعادة تهيئة اللائحة
+        </button>
+    </div>
+
+    <!-- ================= OFFICIAL DOCUMENT TO PRINT / EXPORT ================= -->
+    <main id="officialDocumentWrapper">
+        
+        <!-- Institutional Header with Enlarged Official Logos -->
+        <header class="institutional-header">
+            <!-- Ibn Zohr University Logo -->
+            <img src="logo_ibn_zohr.png" alt="شعار جامعة ابن زهر" class="header-logo">
+            
+            <!-- Center Institutional Text -->
+            <div class="header-center-info">
+                <div class="country-title">المملكة المغربية</div>
+                <div class="univ-title">جامعة ابن زهر</div>
+                <div class="faculty-title">كلية الاقتصاد والتدبير - أيت ملول</div>
+                <div class="master-badge">
+                    ماستر: Applied Economics, Artificial Intelligence & Policy Design (2APD)
+                </div>
+            </div>
+
+            <!-- 2APD Master Program Logo -->
+            <img src="logo_2apd.png" alt="شعار ماستر 2APD" class="header-logo">
+        </header>
+
+        <!-- Official Letter Body -->
+        <article class="letter-content">
+            <!-- Meta Details -->
+            <div class="letter-meta-grid">
+                <div>
+                    <strong>من:</strong> عموم طلبة ماستر التوقيت الميسر (Master en Temps Aménagé)<br>
+                    <strong>الشعبة:</strong> Applied Economics, Artificial Intelligence & Policy Design (2APD)<br>
+                    <strong>الموسم الجامعي:</strong> 2026 - 2027
+                </div>
+                <div style="text-align: left; direction: ltr;">
+                    <strong>Aït Melloul, le:</strong> <span id="currentDateDisplay"></span>
+                </div>
+            </div>
+
+            <div style="margin: 15px 0 20px 0;">
+                <strong>إلى السيد(ة) المحترم(ة):</strong> عميد كلية الاقتصاد والتدبير بأيت ملول / المنسق البيداغوجي لماستر 2APD / إدارة التكوين المستمر<br>
+                <strong>المؤسسة:</strong> كلية الاقتصاد والتدبير - أيت ملول (جامعة ابن زهر)
+            </div>
+
+            <!-- Subject -->
+            <div class="letter-subject">
+                الموضوع: ملتمس جماعي لتسهيل أداء مصاريف التكوين عبر دفعتين (فصلين دراسيين)
+            </div>
+
+            <p style="text-align: center; font-weight: bold; margin-bottom: 14px;">سلام تام بوجود مولانا الإمام،</p>
+
+            <p>وبعد،</p>
+
+            <div class="letter-body">
+                <p>
+                    يشرفنا نحن، كافة طلبة سلك ماستر التوقيت الميسر تخصص <strong>Applied Economics, Artificial Intelligence & Policy Design (2APD)</strong>، المقيدين برسم الموسم الجامعي الحالي، أن نرفع إلى سيادتكم المحترمة هذا الملتمس الجماعي، ملتمسين من كرمكم وحسن تدبيركم النظر بعين التيسير في صيغة أداء واجبات التكوين السنوية والمحددة في مبلغ <strong>14.000 درهم (أربعة عشر ألف درهم)</strong>.
+                </p>
+
+                <p>
+                    ونلتمس من جنابكم الموقر التفضل بالموافقة على اعتماد أداء هذا المبلغ عبر <strong>دفعتين متساويتين</strong> تزامناً مع كل <strong>فصل دراسي</strong>، وفق الترتيب التالي:
+                </p>
+
+                <div class="installments-box">
+                    <strong>صيغة الأداء المقترحة:</strong>
+                    <ul>
+                        <li><strong>الدفعة الأولى:</strong> أداء مبلغ <strong>7.000 درهم</strong> تزامناً مع <strong>الفصل الدراسي الأول</strong>.</li>
+                        <li><strong>الدفعة الثانية:</strong> أداء مبلغ <strong>7.000 درهم</strong> المتبقي مع انطلاق <strong>الفصل الدراسي الثاني</strong>.</li>
+                    </ul>
+                </div>
+
+                <p>
+                    ويأتي هذا الطلب نظراً للإكراهات والالتزامات المادية المتعددة للطلبة، ورغبةً منا في تفادي أي عبء مالي قد يثقل كاهل زملائنا أو يعيق انتظامهم في مسارهم الجامعي، مع تأكيد التزام كافة الطلبة التام والصارم بتسوية مستحقات الدفعة الثانية في الآجال التي تحددها الإدارة قبل انطلاق دروس أو امتحانات الفصل الثاني.
+                </p>
+
+                <p>
+                    إننا إذ نضع بين أيديكم هذا الملتمس، نضع كامل ثقتنا في سعة صدركم وحرصكم الدائم على مصلحة الطلبة ودعمهم لمواصلة تحصيلهم العلمي في أفضل الظروف الملائمة.
+                </p>
+
+                <p style="margin-top: 18px;">
+                    وتقبلوا منا، سيدي العميد / سيدي المنسق، أسمى عبارات التقدير والاحترام.
+                </p>
+
+                <p style="text-align: left; font-weight: bold; margin-top: 15px;">والسلام عليكم ورحمة الله وبركاته.</p>
+            </div>
+        </article>
+
+        <!-- Dynamic Signatories Table inside the Printable Document -->
+        <section class="document-signatures-section">
+            <h3>لائحة توقيعات طلبة الفوج:</h3>
+            
+            <div class="table-responsive">
+                <table class="signatures-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 45px; text-align: center;">الرقم</th>
+                            <th>الاسم والنسب الكامل</th>
+                            <th>رقم البطاقة الوطنية (CIN)</th>
+                            <th>رقم التسجيل</th>
+                            <th style="text-align: center; width: 140px;">التوقيع</th>
+                            <th id="thActionCol" class="no-print" style="text-align: center; width: 60px; display: none;">إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="signaturesTableBody">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="emptyTableMessage" class="empty-signatures-notice">
+                لم يتم تسجيل أي توقيع بعد. يرجى من الطلبة تسجيل توقيعاتهم أدناه.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= STUDENT INPUT FORM (SCREEN ONLY) ================= -->
+    <section class="form-card no-print">
+        <h2>تسجيل وتوقيع الطالب(ة)</h2>
+        <p class="subtitle">يرجى ملء البيانات بدقة والتوقيع بالإصبع (أو الفأرة) في الإطار المخصص للإضافة إلى اللائحة الرسمية.</p>
+
+        <form id="signerForm" onsubmit="handleSignatureSubmit(event)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fullName">الاسم والنسب الكامل (Nom et Prénom) *</label>
+                    <input type="text" id="fullName" placeholder="مثال: يوسف الإدريسي" required>
+                </div>
+                <div class="form-group">
+                    <label for="cinNumber">رقم البطاقة الوطنية (CIN) *</label>
+                    <input type="text" id="cinNumber" placeholder="مثال: AB123456" required style="text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label for="apogeeNumber">رقم التسجيل *</label>
+                    <input type="text" id="apogeeNumber" placeholder="أدخل رقم التسجيل" required>
+                </div>
+            </div>
+
+            <div class="signature-wrapper">
+                <div class="signature-header">
+                    <label style="font-weight: 700; color: #334155;">رسم التوقيع الإلكتروني (Signature) *</label>
+                    <button type="button" class="btn btn-secondary" onclick="clearCanvas()" style="padding: 4px 12px; font-size: 0.82rem;">
+                        مسح التوقيع
+                    </button>
+                </div>
+
+                <div class="canvas-container">
+                    <canvas id="signaturePad"></canvas>
+                    <div id="canvasHint" class="canvas-hint">وقّع هنا بإصبعك على شاشة الهاتف أو بالفأرة</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 13px;">
+                تأكيد وإضافة توقيعي إلى اللائحة الرسمية
+            </button>
+        </form>
+    </section>
+
+</div>
+
+<div id="toastMessage" class="toast"></div>
+
+<script>
+    // State & Storage
+    let signatures = [];
+    const STORAGE_KEY = 'master_2apd_petition_signatures_v2';
+    const ADMIN_PIN = '2apd2027';
+    let isAdmin = sessionStorage.getItem('master_admin_session') === 'true';
+
+    // Canvas Logic
+    const canvas = document.getElementById('signaturePad');
+    const ctx = canvas.getContext('2d');
+    const canvasHint = document.getElementById('canvasHint');
+    let isDrawing = false;
+    let hasDrawn = false;
+
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width === 0) return;
+        const dpi = window.devicePixelRatio || 1;
+        
+        let savedImg = null;
+        if (hasDrawn) {
+            try { savedImg = canvas.toDataURL(); } catch(e){}
+        }
+
+        canvas.width = rect.width * dpi;
+        canvas.height = rect.height * dpi;
+        ctx.scale(dpi, dpi);
+        ctx.lineWidth = 2.4;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.strokeStyle = '#103264';
+
+        if (savedImg) {
+            const img = new Image();
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, rect.width, rect.height);
+            };
+            img.src = savedImg;
+        }
+    }
+
+    function getPointerPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        };
+    }
+
+    function startDrawing(e) {
+        e.preventDefault();
+        isDrawing = true;
+        hasDrawn = true;
+        canvasHint.style.display = 'none';
+        const pos = getPointerPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const pos = getPointerPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+    }
+
+    function stopDrawing() {
+        if (!isDrawing) return;
+        isDrawing = false;
+        ctx.closePath();
+    }
+
+    function clearCanvas() {
+        const dpi = window.devicePixelRatio || 1;
+        ctx.clearRect(0, 0, canvas.width / dpi, canvas.height / dpi);
+        hasDrawn = false;
+        canvasHint.style.display = 'block';
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDrawing);
+
+    canvas.addEventListener('touchstart', startDrawing, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    window.addEventListener('touchend', stopDrawing);
+    window.addEventListener('touchcancel', stopDrawing);
+
+    function showToast(msg) {
+        const toast = document.getElementById('toastMessage');
+        toast.textContent = msg;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
+    /* Admin Authentication Functions */
+    function updateAdminUI() {
+        const adminNotice = document.getElementById('adminNoticeBar');
+        const adminBar = document.getElementById('adminActionBar');
+        const toggleBtn = document.getElementById('adminToggleBtn');
+        const thAction = document.getElementById('thActionCol');
+
+        if (isAdmin) {
+            if (adminNotice) adminNotice.style.display = 'flex';
+            if (adminBar) adminBar.style.display = 'flex';
+            if (toggleBtn) {
+                toggleBtn.textContent = 'تسجيل خروج المشرف';
+                toggleBtn.style.color = '#b91c1c';
+            }
+            if (thAction) thAction.style.display = '';
+        } else {
+            if (adminNotice) adminNotice.style.display = 'none';
+            if (adminBar) adminBar.style.display = 'none';
+            if (toggleBtn) {
+                toggleBtn.textContent = 'دخول المشرف (Admin)';
+                toggleBtn.style.color = '';
+            }
+            if (thAction) thAction.style.display = 'none';
+        }
+        renderTable();
+    }
+
+    function toggleAdminPrompt() {
+        if (isAdmin) {
+            logoutAdmin();
+            return;
+        }
+        const pin = prompt('أدخل الرمز السري للمشرف (Admin PIN) للوصول إلى أدوات تصدير الملفات وإدارة اللائحة:');
+        if (pin === null) return;
+        if (pin === ADMIN_PIN) {
+            isAdmin = true;
+            sessionStorage.setItem('master_admin_session', 'true');
+            updateAdminUI();
+            showToast('تم تفعيل وضع المشرف بنجاح.');
+        } else {
+            alert('الرمز السري غير صحيح. الوصول محجوز لمنسق الفوج فقط.');
+        }
+    }
+
+    function logoutAdmin() {
+        isAdmin = false;
+        sessionStorage.removeItem('master_admin_session');
+        updateAdminUI();
+        showToast('تم الخروج من وضع المشرف.');
+    }
+
+    function loadSignatures() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+            try { signatures = JSON.parse(raw); } catch(e) { signatures = []; }
+        }
+        updateAdminUI();
+
+        fetch('/api/signatures')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    signatures = data;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(signatures));
+                    renderTable();
+                }
+            })
+            .catch(() => {});
+    }
+
+    function saveSignatures() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(signatures));
+        renderTable();
+
+        fetch('/api/signatures', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-Admin-Pin': isAdmin ? ADMIN_PIN : ''
+            },
+            body: JSON.stringify(signatures)
+        }).catch(() => {});
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('signaturesTableBody');
+        const emptyMsg = document.getElementById('emptyTableMessage');
+        const counter = document.getElementById('signerCounter');
+        const thAction = document.getElementById('thActionCol');
+
+        if (counter) counter.textContent = signatures.length;
+        if (thAction) thAction.style.display = isAdmin ? '' : 'none';
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        if (signatures.length === 0) {
+            if (emptyMsg) emptyMsg.style.display = 'block';
+            return;
+        }
+
+        if (emptyMsg) emptyMsg.style.display = 'none';
+
+        signatures.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            let actionTd = '';
+            if (isAdmin) {
+                actionTd = `
+                <td class="no-print" style="text-align: center;">
+                    <button onclick="deleteSignature(${index})" style="background: none; border: none; cursor: pointer; color: #dc2626; font-size: 0.85rem; font-weight: bold;">
+                        حذف
+                    </button>
+                </td>`;
+            }
+            tr.innerHTML = `
+                <td style="text-align: center; font-weight: bold; color: #64748b;">${index + 1}</td>
+                <td style="font-weight: 700;">${item.fullName}</td>
+                <td style="font-family: monospace; font-size: 0.95rem; color: #103264;">${item.cinNumber}</td>
+                <td style="font-family: monospace; font-size: 0.95rem;">${item.apogeeNumber}</td>
+                <td style="text-align: center;">
+                    <img src="${item.signatureImg}" alt="توقيع" class="sig-preview">
+                </td>
+                ${actionTd}
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function handleSignatureSubmit(e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const cinNumber = document.getElementById('cinNumber').value.trim().toUpperCase();
+        const apogeeNumber = document.getElementById('apogeeNumber').value.trim();
+
+        if (!hasDrawn) {
+            alert('يرجى رسم التوقيع قبل تأكيد الإرسال.');
+            return;
+        }
+
+        const alreadySigned = signatures.some(s => s.cinNumber === cinNumber || s.apogeeNumber === apogeeNumber);
+        if (alreadySigned) {
+            if (!confirm('هذا الرقم الوطني أو رقم التسجيل مسجل مسبقاً في اللائحة. هل ترغب في المتابعة على أية حال؟')) {
+                return;
+            }
+        }
+
+        const signatureImg = canvas.toDataURL('image/png');
+
+        const newEntry = {
+            id: Date.now().toString(),
+            fullName,
+            cinNumber,
+            apogeeNumber,
+            signatureImg,
+            timestamp: new Date().toISOString()
+        };
+
+        signatures.push(newEntry);
+        saveSignatures();
+        document.getElementById('signerForm').reset();
+        clearCanvas();
+        showToast('تم تسجيل توقيعك بنجاح في اللائحة الرسمية.');
+    }
+
+    function deleteSignature(index) {
+        if (!isAdmin) {
+            alert('غير مصرح لك بحذف البيانات.');
+            return;
+        }
+        if (confirm(`تأكيد حذف توقيع الطالب: ${signatures[index].fullName}؟`)) {
+            signatures.splice(index, 1);
+            saveSignatures();
+            showToast('تم حذف التوقيع.');
+        }
+    }
+
+    function resetSignaturesPrompt() {
+        if (!isAdmin) {
+            alert('غير مصرح لك بإعادة تهيئة اللائحة.');
+            return;
+        }
+        if (confirm('تأكيد مسح كافة التوقيعات؟ لا يمكن التراجع عن هذه الخطوة.')) {
+            signatures = [];
+            saveSignatures();
+            showToast('تمت إعادة تهيئة اللائحة.');
+        }
+    }
+
+    /* ================= PURE PDF GENERATION (NO URLS, NO HEADERS, NO FOOTERS) ================= */
+    function generateCleanPDF() {
+        if (signatures.length === 0) {
+            if (!confirm('اللائحة فارغة حالياً. هل ترغب في استخراج الطلب بصيغة PDF على أية حال؟')) {
+                return;
+            }
+        }
+
+        showToast('جاري إنشاء ملف الـ PDF بدون أي هوامش أو روابط خارجية...');
+
+        const element = document.getElementById('officialDocumentWrapper');
+
+        const opt = {
+            margin:       [10, 12, 10, 12], // Margins in mm: top, right, bottom, left
+            filename:     'ملتمس_أداء_مصاريف_ماستر_2APD.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+
+        // Temporarily hide any no-print elements inside the element if present
+        const noPrints = element.querySelectorAll('.no-print');
+        noPrints.forEach(el => el.style.display = 'none');
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            noPrints.forEach(el => el.style.display = '');
+            showToast('تم تحميل ملف الـ PDF بنجاح.');
+        }).catch(err => {
+            noPrints.forEach(el => el.style.display = '');
+            alert('حدث خطأ أثناء إنشاء الـ PDF. يمكنك استخدام زر الطباعة العادي.');
+        });
+    }
+
+    /* Clean browser print without printing page URL or default title */
+    function triggerCleanPrint() {
+        const originalTitle = document.title;
+        document.title = ""; // Clears the header title in browser print
+        window.print();
+        setTimeout(() => {
+            document.title = originalTitle;
+        }, 1000);
+    }
+
+    function exportDataJSON() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(signatures, null, 2));
+        const a = document.createElement('a');
+        a.href = dataStr;
+        a.download = `لائحة_توقيعات_ماستر_2APD_${new Date().toISOString().slice(0,10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        showToast('تم تصدير ملف البيانات.');
+    }
+
+    function importDataJSON(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const imported = JSON.parse(e.target.result);
+                if (Array.isArray(imported)) {
+                    const existingCins = new Set(signatures.map(s => s.cinNumber));
+                    let count = 0;
+                    imported.forEach(item => {
+                        if (item.cinNumber && !existingCins.has(item.cinNumber)) {
+                            signatures.push(item);
+                            existingCins.add(item.cinNumber);
+                            count++;
+                        }
+                    });
+                    saveSignatures();
+                    showToast(`تم استيراد ${count} توقيعاً.`);
+                }
+            } catch(err) {
+                alert('الملف غير صالح.');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        resizeCanvas();
+        window.addEventListener('resize', () => {
+            if (!hasDrawn) resizeCanvas();
+        });
+
+        const today = new Date();
+        document.getElementById('currentDateDisplay').textContent = today.toLocaleDateString('fr-FR');
+        loadSignatures();
+    });
+</script>
+
+</body>
+</html>
