@@ -399,17 +399,33 @@
             border-bottom: none !important;
             margin-bottom: 0 !important;
             padding-bottom: 0 !important;
-            min-height: 255mm !important;
+            min-height: 245mm !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode .pdf-page-3 {
-            min-height: 255mm !important;
             border-top: none !important;
             padding-top: 0 !important;
+            min-height: auto !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode .page-running-header {
             display: flex !important;
+            margin-bottom: 8px !important;
+            padding-bottom: 4px !important;
+        }
+
+        #officialDocumentWrapper.pdf-export-mode .signatures-heading-block {
+            margin-bottom: 6px !important;
+        }
+
+        #officialDocumentWrapper.pdf-export-mode .signatures-heading-block h3 {
+            font-size: 1.05rem !important;
+            margin-bottom: 2px !important;
+        }
+
+        #officialDocumentWrapper.pdf-export-mode .signatures-heading-block p {
+            font-size: 0.8rem !important;
+            margin: 0 !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode .table-responsive {
@@ -421,17 +437,32 @@
             width: 100% !important;
             min-width: 100% !important;
             table-layout: fixed !important;
+            border-collapse: collapse !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode table.signatures-table th {
             white-space: nowrap !important;
-            padding: 7px 4px !important;
-            font-size: 0.84rem !important;
+            padding: 4px 4px !important;
+            font-size: 0.78rem !important;
+            background: #f1f5f9 !important;
+            color: #000 !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode table.signatures-table td {
-            padding: 6px 4px !important;
-            font-size: 0.84rem !important;
+            padding: 2.5px 4px !important;
+            font-size: 0.78rem !important;
+            line-height: 1.15 !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+
+        #officialDocumentWrapper.pdf-export-mode .sig-preview {
+            max-height: 22px !important;
+            max-width: 80px !important;
+        }
+
+        #officialDocumentWrapper.pdf-export-mode #thActionCol,
+        #officialDocumentWrapper.pdf-export-mode .no-print {
+            display: none !important;
         }
 
         .sig-preview {
@@ -605,17 +636,33 @@
                 border-bottom: none !important;
                 margin-bottom: 0 !important;
                 padding-bottom: 0 !important;
-                min-height: 255mm !important;
+                min-height: 245mm !important;
             }
 
             .pdf-page-3 {
                 border-top: none !important;
                 padding-top: 0 !important;
-                min-height: 255mm !important;
+                min-height: auto !important;
             }
 
             .page-running-header {
                 display: flex !important;
+                margin-bottom: 8px !important;
+                padding-bottom: 4px !important;
+            }
+
+            .signatures-heading-block {
+                margin-bottom: 6px !important;
+            }
+
+            .signatures-heading-block h3 {
+                font-size: 1.05rem !important;
+                margin-bottom: 2px !important;
+            }
+
+            .signatures-heading-block p {
+                font-size: 0.8rem !important;
+                margin: 0 !important;
             }
 
             .header-logo {
@@ -653,24 +700,27 @@
             }
 
             table.signatures-table {
-                font-size: 0.88rem !important;
-                border: 1.5px solid #000 !important;
+                font-size: 0.78rem !important;
+                border: 1px solid #000 !important;
                 width: 100% !important;
                 table-layout: fixed !important;
+                border-collapse: collapse !important;
             }
 
             table.signatures-table th {
                 background: #f1f5f9 !important;
                 color: #000 !important;
                 border: 1px solid #000 !important;
-                padding: 8px 6px !important;
-                font-size: 0.88rem !important;
+                padding: 4px 4px !important;
+                font-size: 0.78rem !important;
+                white-space: nowrap !important;
             }
 
             table.signatures-table td {
                 border: 1px solid #000 !important;
-                padding: 6px 6px !important;
-                font-size: 0.88rem !important;
+                padding: 2.5px 4px !important;
+                font-size: 0.78rem !important;
+                line-height: 1.15 !important;
             }
 
             table.signatures-table tr {
@@ -679,7 +729,8 @@
             }
 
             .sig-preview {
-                max-height: 38px !important;
+                max-height: 22px !important;
+                max-width: 80px !important;
             }
         }
 
@@ -838,10 +889,10 @@
     <div id="adminActionBar" class="action-bar no-print" style="display: none;">
         <div class="action-bar-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
             <button class="btn btn-pdf" onclick="generateCleanPDF()">
-                تحميل وثيقة PDF رسمية (خالية من الروابط والعناوين)
+                تحميل وثيقة PDF رسمية (3 صفحات)
             </button>
-            <button class="btn btn-print" onclick="triggerCleanPrint()">
-                طباعة المستند
+            <button class="btn btn-print" onclick="triggerCleanPrint()" title="تصدير PDF رسمي عالي الدقة بنصوص وجداول قابلة للتعديل لاحقاً في Word و Acrobat">
+                تصدير PDF قابل للتعديل (Word / Acrobat)
             </button>
             <button class="btn btn-secondary" onclick="exportDataJSON()">
                 تصدير اللائحة (JSON)
@@ -1363,7 +1414,12 @@
             }
         } catch (e) {}
 
-        // Apply clean PDF export mode (strictly 718px width, no screen padding, visible headers)
+        // TEMPORARILY disable admin view so the delete/action column is 100% stripped from DOM
+        const wasAdmin = isAdmin;
+        isAdmin = false;
+        renderTable();
+
+        // Apply clean PDF export mode (strictly 718px width, no screen padding, visible headers, ultra compact table)
         element.classList.add('pdf-export-mode');
 
         const opt = {
@@ -1377,30 +1433,40 @@
                 scrollY: 0
             },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak:    { mode: ['css', 'legacy'], after: '.pdf-page-break', avoid: ['tr', 'table'] }
+            pagebreak:    { mode: ['css', 'legacy'], after: '.pdf-page-break' }
         };
 
         const restore = () => {
             element.classList.remove('pdf-export-mode');
+            isAdmin = wasAdmin;
+            renderTable(); // Restore admin mode
         };
 
         html2pdf().set(opt).from(element).save().then(() => {
             restore();
-            showToast('تم تحميل وثيقة الـ PDF بنجاح.');
+            showToast('تم تحميل وثيقة الـ PDF بنجاح (3 صفحات).');
         }).catch(err => {
             restore();
             console.error('PDF generation error:', err);
-            alert('حدث خطأ أثناء إنشاء الـ PDF. يمكنك استخدام زر الطباعة العادي.');
+            alert('حدث خطأ أثناء إنشاء الـ PDF. يمكنك استخدام زر التصدير العالي الدقة.');
         });
     }
 
-    /* Clean browser print without printing page URL or default title */
+    /* Clean browser print without printing page URL or default title (Exports 100% Vector editable PDF for Word/Acrobat) */
     function triggerCleanPrint() {
+        const wasAdmin = isAdmin;
+        isAdmin = false;
+        renderTable(); // Strip delete column completely before printing
+
         const originalTitle = document.title;
-        document.title = ""; // Clears the header title in browser print
+        document.title = "ملتمس_أداء_مصاريف_ماستر_2APD"; 
+        
         window.print();
+        
         setTimeout(() => {
             document.title = originalTitle;
+            isAdmin = wasAdmin;
+            renderTable(); // Restore admin view
         }, 1000);
     }
 
