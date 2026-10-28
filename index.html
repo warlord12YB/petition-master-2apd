@@ -276,47 +276,107 @@
             font-weight: bold;
         }
 
+        /* PDF & Document Page Containers */
+        .pdf-page {
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+        }
+
+        .pdf-page-break {
+            page-break-after: always !important;
+            break-after: page !important;
+        }
+
+        .pdf-page-1, .pdf-page-2 {
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 35px;
+            margin-bottom: 35px;
+        }
+
+        .page-running-header {
+            display: none;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #64748b;
+            border-bottom: 1.5px solid #cbd5e1;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+        }
+
+        .page-1-summary-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-right: 4px solid var(--primary);
+            padding: 16px 20px;
+            margin-top: 25px;
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+        }
+
         /* Signatures Section in Official Document */
         .document-signatures-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed #cbd5e1;
+            margin-top: 10px;
+        }
+
+        .signatures-heading-block {
+            margin-bottom: 16px;
+            font-family: 'Cairo', sans-serif;
         }
 
         .document-signatures-section h3 {
             font-family: 'Cairo', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: #0f172a;
-            margin-bottom: 14px;
+            margin-bottom: 4px;
+        }
+
+        /* Table & Uncropped Rendering */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         table.signatures-table {
-            width: 100%;
+            width: 100% !important;
             border-collapse: collapse;
             text-align: right;
             font-family: 'Cairo', sans-serif;
             font-size: 0.92rem;
+            table-layout: fixed;
+            word-wrap: break-word;
         }
 
         table.signatures-table th {
             background: #f1f5f9;
-            color: #334155;
+            color: #1e293b;
             font-weight: 700;
-            padding: 10px 14px;
+            padding: 10px 12px;
             border: 1px solid #cbd5e1;
-            white-space: nowrap;
+            font-size: 0.9rem;
         }
 
         table.signatures-table td {
             padding: 8px 12px;
             border: 1px solid #cbd5e1;
             vertical-align: middle;
+            font-size: 0.92rem;
+        }
+
+        table.signatures-table tr {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
         }
 
         .sig-preview {
-            max-height: 44px;
-            max-width: 130px;
+            max-height: 42px;
+            max-width: 95%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             display: block;
             margin: 0 auto;
@@ -450,9 +510,11 @@
                 padding: 0 !important;
                 margin: 0 !important;
                 color: black !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
-            .no-print, .app-header, .action-bar, .form-card, .btn {
+            .no-print, .app-header, .action-bar, .form-card, .btn, .admin-notice-bar {
                 display: none !important;
             }
 
@@ -461,6 +523,37 @@
                 box-shadow: none !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+
+            .pdf-page {
+                box-sizing: border-box !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .pdf-page-break {
+                page-break-after: always !important;
+                break-after: page !important;
+            }
+
+            .pdf-page-1, .pdf-page-2 {
+                border-bottom: none !important;
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+                min-height: 255mm !important;
+            }
+
+            .pdf-page-3 {
+                border-top: none !important;
+                padding-top: 0 !important;
+                min-height: 255mm !important;
+            }
+
+            .page-running-header {
+                display: flex !important;
             }
 
             .header-logo {
@@ -473,7 +566,7 @@
             }
 
             .letter-meta-grid {
-                background: transparent !important;
+                background: #f8fafc !important;
                 border: 1px solid #94a3b8 !important;
                 padding: 10px 14px !important;
             }
@@ -482,31 +575,45 @@
                 background: #f8fafc !important;
                 border: 1.5px solid #000 !important;
                 color: #000 !important;
-                font-size: 1.1rem !important;
-                padding: 8px 12px !important;
+                font-size: 1.15rem !important;
+                padding: 10px 14px !important;
             }
 
-            .installments-box {
-                background: transparent !important;
-                border: 1px solid #64748b !important;
-                color: #000 !important;
+            .page-1-summary-box {
+                background: #f8fafc !important;
+                border: 1px solid #94a3b8 !important;
+                border-right: 4px solid #103264 !important;
+            }
+
+            .table-responsive {
+                overflow: visible !important;
+                width: 100% !important;
             }
 
             table.signatures-table {
-                font-size: 0.85rem !important;
-                border: 1px solid #000 !important;
+                font-size: 0.88rem !important;
+                border: 1.5px solid #000 !important;
+                width: 100% !important;
+                table-layout: fixed !important;
             }
 
             table.signatures-table th {
                 background: #f1f5f9 !important;
                 color: #000 !important;
                 border: 1px solid #000 !important;
-                padding: 6px 8px !important;
+                padding: 8px 6px !important;
+                font-size: 0.88rem !important;
             }
 
             table.signatures-table td {
                 border: 1px solid #000 !important;
-                padding: 6px 8px !important;
+                padding: 6px 6px !important;
+                font-size: 0.88rem !important;
+            }
+
+            table.signatures-table tr {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
 
             .sig-preview {
@@ -691,97 +798,139 @@
     <!-- ================= OFFICIAL DOCUMENT TO PRINT / EXPORT ================= -->
     <main id="officialDocumentWrapper">
         
-        <!-- Institutional Header with Enlarged Official Logos -->
-        <header class="institutional-header">
-            <!-- FEGAM Logo (Faculté des Sciences de l'Économie et de Gestion d'Aït Melloul) -->
-            <img src="logo_fegam.png" alt="شعار كلية الاقتصاد والتدبير أيت ملول" class="header-logo">
-            
-            <!-- Center Institutional Text -->
-            <div class="header-center-info">
-                <div class="country-title">المملكة المغربية</div>
-                <div class="univ-title">جامعة ابن زهر</div>
-                <div class="faculty-title">كلية الاقتصاد والتدبير - أيت ملول</div>
-                <div class="master-badge">
-                    ماستر: Applied Economics, Artificial Intelligence & Policy Design (2APD)
+        <!-- ================= PAGE 1: TITLE, LOGOS, METADATA & SUBJECT ================= -->
+        <section class="pdf-page pdf-page-1 pdf-page-break">
+            <!-- Institutional Header with Official Logos -->
+            <header class="institutional-header">
+                <!-- FEGAM Logo (Faculté des Sciences de l'Économie et de Gestion d'Aït Melloul) -->
+                <img src="logo_fegam.png" alt="شعار كلية الاقتصاد والتدبير أيت ملول" class="header-logo">
+                
+                <!-- Center Institutional Text -->
+                <div class="header-center-info">
+                    <div class="country-title">المملكة المغربية</div>
+                    <div class="univ-title">جامعة ابن زهر</div>
+                    <div class="faculty-title">كلية الاقتصاد والتدبير - أيت ملول</div>
+                    <div class="master-badge">
+                        ماستر: Applied Economics, Artificial Intelligence & Policy Design (2APD)
+                    </div>
                 </div>
+
+                <!-- 2APD Master Program Logo -->
+                <img src="logo_2apd.png" alt="شعار ماستر 2APD" class="header-logo">
+            </header>
+
+            <article class="letter-content">
+                <!-- Meta Details -->
+                <div class="letter-meta-grid">
+                    <div>
+                        <strong>من:</strong> طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)<br>
+                        <strong>الشعبة:</strong> Applied Economics, Artificial Intelligence & Policy Design (2APD)<br>
+                        <strong>الموسم الجامعي:</strong> 2026 / 2027
+                    </div>
+                    <div style="text-align: left; direction: ltr;">
+                        <strong>Aït Melloul, le:</strong> <span id="currentDateDisplay"></span>
+                    </div>
+                </div>
+
+                <!-- Addressee Centered at Top -->
+                <div style="margin: 28px 0 22px 0; text-align: center; line-height: 2;">
+                    <div style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">
+                        إلى السيد عميد كلية الاقتصاد والتدبير بأيت ملول المحترم
+                    </div>
+                    <div style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-top: 6px;">
+                        تحت إشراف السيد منسق ماستر Applied Economics, Artificial Intelligence & Policy Design (2APD)
+                    </div>
+                </div>
+
+                <!-- Subject -->
+                <div class="letter-subject" style="margin: 22px 0 25px 0;">
+                    الموضوع: ملتمس بشأن أداء واجبات التكوين السنوية على دفعتين
+                </div>
+
+                <!-- Page 1 Presentation & Summary Box -->
+                <div class="page-1-summary-box">
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #103264; margin-bottom: 10px;">
+                        تقديم وملخص الطلب:
+                    </div>
+                    <p style="margin: 0; line-height: 2; color: #1e293b; font-size: 1.05rem;">
+                        ملتمس رسمي مرفوع من طرف طلبة السنة الثانية بسلك الماستر (فوج التوقيت الميسر)، تخصص <strong>Applied Economics, Artificial Intelligence & Policy Design (2APD)</strong>، قصد التفضل بالموافقة على تيسير أداء واجبات التكوين السنوية المحددة في <strong>14.000 درهم</strong>، عبر تمكين الطلبة من أدائها على <strong>دفعتين متساويتين (7.000 درهم لكل دفعة)</strong>، تزامناً مع مطلع كل فصل دراسي برسم الموسم الجامعي 2026/2027.
+                    </p>
+                    <div style="margin-top: 20px; padding-top: 12px; border-top: 1px dashed #cbd5e1; font-size: 0.95rem; color: #64748b; display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>المرجع الإداري:</strong> السنة الثانية ماستر 2APD - الموسم الجامعي 2026 / 2027</span>
+                        <span style="font-weight: 700; color: #103264;">(تفاصيل نص الملتمس مدرجة بالصفحة الموالية)</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- ================= PAGE 2: REQUEST LETTER BODY & JUSTIFICATIONS ================= -->
+        <section class="pdf-page pdf-page-2 pdf-page-break">
+            <!-- Running Header for Page 2 -->
+            <div class="page-running-header">
+                <span>كلية الاقتصاد والتدبير - أيت ملول | ماستر 2APD</span>
+                <span>ملتمس أداء واجبات التكوين السنوية (الصفحة 2 من 3)</span>
             </div>
 
-            <!-- 2APD Master Program Logo -->
-            <img src="logo_2apd.png" alt="شعار ماستر 2APD" class="header-logo">
-        </header>
+            <article class="letter-content">
+                <p style="font-weight: bold; font-size: 1.18rem; margin-bottom: 8px;">سيدي العميد المحترم،</p>
+                <p style="text-align: center; font-weight: bold; font-size: 1.15rem; margin-bottom: 18px;">سلام تام بوجود مولانا الإمام، وبعد،</p>
 
-        <!-- Official Letter Body -->
-        <article class="letter-content">
-            <!-- Meta Details -->
-            <div class="letter-meta-grid">
-                <div>
-                    <strong>من:</strong> طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)<br>
-                    <strong>الشعبة:</strong> Applied Economics, Artificial Intelligence & Policy Design (2APD)<br>
-                    <strong>الموسم الجامعي:</strong> 2026 / 2027
+                <div class="letter-body">
+                    <p>
+                        يشرفنا نحن الموقعين رفقته، طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)، تخصص <strong>Applied Economics, Artificial Intelligence & Policy Design (2APD)</strong>، برسم الموسم الجامعي 2026/2027، أن نرفع إلى سيادتكم هذا الملتمس، راجين النظر بعين التيسير في صيغة أداء واجبات التكوين السنوية، المحددة في <strong>14.000 درهم (أربعة عشر ألف درهم)</strong>، والتي أُدّيت الموسم الماضي دفعة واحدة.
+                    </p>
+
+                    <p>
+                        ونحيطكم علماً، سيدي العميد، بأن أداء المبلغ دفعة واحدة وضعنا أمام إكراهات عديدة، منها التنقل ليلاً بين المدن، والمداومة على الدراسة يومي السبت والأحد، وما يترتب على ذلك من أعباء مالية، فضلاً عن التزاماتنا العائلية الثابتة. وقد أثقل ذلك كاهلنا وأثّر سلباً في تحصيلنا الأكاديمي والبحثي.
+                    </p>
+
+                    <p>
+                        ورغبةً منا في تجاوز أي ضائقة مالية قد تحول دون إتمام هذا السلك على الوجه المطلوب، وخاصة إنجاز بحث التخرج في المستوى الذي بلغته بقية الأفواج، بل وتحقيق التفوق، فإننا نلتمس من سيادتكم الموافقة على أداء واجبات التكوين السنوية عبر <strong>دفعتين متساويتين (7.000 درهم لكل دفعة)</strong>، تزامناً مع كل فصل دراسي.
+                    </p>
+
+                    <p>
+                        ونؤكد التزامنا التام بتسوية مستحقات الدفعتين في الآجال التي تحددونها، وثقتنا كاملة في سعة صدركم وحرصكم الدائم على مصلحة الطلبة ودعمهم لمواصلة تحصيلهم العلمي في أفضل الظروف.
+                    </p>
+
+                    <p style="margin-top: 22px;">
+                        وتقبلوا منا، سيدي العميد، أسمى عبارات التقدير والاحترام.
+                    </p>
+
+                    <p style="text-align: left; font-weight: bold; margin-top: 18px; font-size: 1.1rem;">والسلام عليكم ورحمة الله وبركاته.</p>
+
+                    <p style="text-align: left; margin-top: 18px; font-weight: bold; color: #334155;">حرر في أيت ملول، بتاريخ ..............</p>
                 </div>
-                <div style="text-align: left; direction: ltr;">
-                    <strong>Aït Melloul, le:</strong> <span id="currentDateDisplay"></span>
+
+                <div style="margin-top: 30px; padding-top: 12px; border-top: 1px dashed #cbd5e1; font-size: 0.95rem; color: #64748b; text-align: left; font-weight: 700;">
+                    (تليها لائحة توقيعات طلبة الفوج بالصفحة الموالية)
                 </div>
+            </article>
+        </section>
+
+        <!-- ================= PAGE 3: SIGNATURES TABLE ================= -->
+        <section class="pdf-page pdf-page-3 document-signatures-section">
+            <!-- Running Header for Page 3 -->
+            <div class="page-running-header">
+                <span>كلية الاقتصاد والتدبير - أيت ملول | ماستر 2APD</span>
+                <span>لائحة توقيعات طلبة الفوج (الصفحة 3 من 3)</span>
             </div>
 
-            <!-- Addressee Centered at Top -->
-            <div style="margin: 22px 0 18px 0; text-align: center; line-height: 2;">
-                <div style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">
-                    إلى السيد عميد كلية الاقتصاد والتدبير بأيت ملول المحترم
-                </div>
-                <div style="font-size: 1.05rem; font-weight: 700; color: #334155;">
-                    تحت إشراف السيد منسق ماستر Applied Economics, Artificial Intelligence & Policy Design (2APD)
-                </div>
+            <div class="signatures-heading-block">
+                <h3>لائحة توقيعات طلبة الفوج:</h3>
+                <p style="color: #64748b; font-size: 0.95rem; margin: 4px 0 0 0;">
+                    مرفق بالملتمس الموجه إلى السيد عميد كلية الاقتصاد والتدبير بأيت ملول
+                </p>
             </div>
-
-            <!-- Subject -->
-            <div class="letter-subject">
-                الموضوع: ملتمس بشأن أداء واجبات التكوين السنوية على دفعتين
-            </div>
-
-            <p style="font-weight: bold; margin-bottom: 6px;">سيدي العميد المحترم،</p>
-            <p style="text-align: center; font-weight: bold; margin-bottom: 14px;">سلام تام بوجود مولانا الإمام، وبعد،</p>
-
-            <div class="letter-body">
-                <p>
-                    يشرفنا نحن الموقعين رفقته، طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)، تخصص <strong>Applied Economics, Artificial Intelligence & Policy Design (2APD)</strong>، برسم الموسم الجامعي 2026/2027، أن نرفع إلى سيادتكم هذا الملتمس، راجين النظر بعين التيسير في صيغة أداء واجبات التكوين السنوية، المحددة في <strong>14.000 درهم (أربعة عشر ألف درهم)</strong>، والتي أُدّيت الموسم الماضي دفعة واحدة.
-                </p>
-
-                <p>
-                    ونحيطكم علماً، سيدي العميد، بأن أداء المبلغ دفعة واحدة وضعنا أمام إكراهات عديدة، منها التنقل ليلاً بين المدن، والمداومة على الدراسة يومي السبت والأحد، وما يترتب على ذلك من أعباء مالية، فضلاً عن التزاماتنا العائلية الثابتة. وقد أثقل ذلك كاهلنا وأثّر سلباً في تحصيلنا الأكاديمي والبحثي.
-                </p>
-
-                <p>
-                    ورغبةً منا في تجاوز أي ضائقة مالية قد تحول دون إتمام هذا السلك على الوجه المطلوب، وخاصة إنجاز بحث التخرج في المستوى الذي بلغته بقية الأفواج، بل وتحقيق التفوق، فإننا نلتمس من سيادتكم الموافقة على أداء واجبات التكوين السنوية عبر <strong>دفعتين متساويتين (7.000 درهم لكل دفعة)</strong>، تزامناً مع كل فصل دراسي.
-                </p>
-
-                <p>
-                    ونؤكد التزامنا التام بتسوية مستحقات الدفعتين في الآجال التي تحددونها، وثقتنا كاملة في سعة صدركم وحرصكم الدائم على مصلحة الطلبة ودعمهم لمواصلة تحصيلهم العلمي في أفضل الظروف.
-                </p>
-
-                <p style="margin-top: 18px;">
-                    وتقبلوا منا، سيدي العميد، أسمى عبارات التقدير والاحترام.
-                </p>
-
-                <p style="text-align: left; font-weight: bold; margin-top: 15px;">والسلام عليكم ورحمة الله وبركاته.</p>
-
-                <p style="text-align: left; margin-top: 15px; font-weight: bold; color: #334155;">حرر في أيت ملول، بتاريخ ..............</p>
-            </div>
-        </article>
-
-        <!-- Dynamic Signatories Table inside the Printable Document -->
-        <section class="document-signatures-section">
-            <h3>لائحة توقيعات طلبة الفوج:</h3>
             
             <div class="table-responsive">
                 <table class="signatures-table">
                     <thead>
                         <tr>
-                            <th style="width: 45px; text-align: center;">الرقم</th>
-                            <th>الاسم والنسب الكامل</th>
-                            <th>رقم البطاقة الوطنية (CIN)</th>
-                            <th>رقم التسجيل</th>
-                            <th style="text-align: center; width: 140px;">التوقيع</th>
+                            <th style="width: 7%; text-align: center;">الرقم</th>
+                            <th style="width: 33%;">الاسم والنسب الكامل</th>
+                            <th style="width: 20%;">رقم البطاقة الوطنية (CIN)</th>
+                            <th style="width: 20%;">رقم التسجيل</th>
+                            <th style="width: 20%; text-align: center;">التوقيع</th>
                             <th id="thActionCol" class="no-print" style="text-align: center; width: 60px; display: none;">إجراء</th>
                         </tr>
                     </thead>
@@ -1130,7 +1279,7 @@
         }
     }
 
-    /* ================= PURE PDF GENERATION (NO URLS, NO HEADERS, NO FOOTERS) ================= */
+    /* ================= PURE PDF GENERATION (3 DISTINCT PAGES, NO CROPPING, NO URLS) ================= */
     function generateCleanPDF() {
         if (signatures.length === 0) {
             if (!confirm('اللائحة فارغة حالياً. هل ترغب في استخراج الطلب بصيغة PDF على أية حال؟')) {
@@ -1138,28 +1287,61 @@
             }
         }
 
-        showToast('جاري إنشاء ملف الـ PDF بدون أي هوامش أو روابط خارجية...');
+        showToast('جاري إعداد وثيقة الـ PDF الرسمية (3 صفحات منسقة بدون أي اقتطاع)...');
 
         const element = document.getElementById('officialDocumentWrapper');
 
+        // Temporarily adjust styles for clean capture
+        const responsiveWrappers = element.querySelectorAll('.table-responsive');
+        responsiveWrappers.forEach(w => {
+            w.style.overflow = 'visible';
+            w.style.width = '100%';
+        });
+
+        const runningHeaders = element.querySelectorAll('.page-running-header');
+        runningHeaders.forEach(h => {
+            h.style.display = 'flex';
+        });
+
+        const noPrints = element.querySelectorAll('.no-print');
+        noPrints.forEach(el => {
+            el.style.display = 'none';
+        });
+
         const opt = {
-            margin:       [10, 12, 10, 12], // Margins in mm: top, right, bottom, left
+            margin:       [10, 10, 10, 10], // Margins in mm: top, right, bottom, left
             filename:     'ملتمس_أداء_مصاريف_ماستر_2APD.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true, 
+                letterRendering: true,
+                scrollY: 0,
+                windowWidth: 1024
+            },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            pagebreak:    { mode: ['css', 'legacy'], after: '.pdf-page-break', avoid: ['tr', 'table'] }
         };
 
-        // Temporarily hide any no-print elements inside the element if present
-        const noPrints = element.querySelectorAll('.no-print');
-        noPrints.forEach(el => el.style.display = 'none');
+        const restoreStyles = () => {
+            responsiveWrappers.forEach(w => {
+                w.style.overflow = '';
+                w.style.width = '';
+            });
+            runningHeaders.forEach(h => {
+                h.style.display = '';
+            });
+            noPrints.forEach(el => {
+                el.style.display = '';
+            });
+        };
 
         html2pdf().set(opt).from(element).save().then(() => {
-            noPrints.forEach(el => el.style.display = '');
-            showToast('تم تحميل ملف الـ PDF بنجاح.');
+            restoreStyles();
+            showToast('تم تحميل وثيقة الـ PDF بنجاح.');
         }).catch(err => {
-            noPrints.forEach(el => el.style.display = '');
+            restoreStyles();
+            console.error('PDF generation error:', err);
             alert('حدث خطأ أثناء إنشاء الـ PDF. يمكنك استخدام زر الطباعة العادي.');
         });
     }
