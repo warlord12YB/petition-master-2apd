@@ -147,28 +147,30 @@
         }
 
         /* Official Letter Paper Document (Strict Paper Aesthetic) */
+        /* Official Letter Paper Document (Strict Paper Aesthetic - Formal University Administrative Style) */
         #officialDocumentWrapper {
             background: #ffffff;
             border: 1px solid #d1d5db;
             padding: 48px 45px;
             margin-bottom: 24px;
+            color: #000000;
         }
 
-        /* Institutional Header with Enlarged Logos */
+        /* Institutional Header with Official Logos */
         .institutional-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #0f172a;
-            margin-bottom: 25px;
-            gap: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1.5px solid #000000;
+            margin-bottom: 24px;
+            gap: 16px;
         }
 
         .header-logo {
-            height: 115px; /* Enlarged logo */
+            height: 85px;
             width: auto;
-            max-width: 220px;
+            max-width: 175px;
             object-fit: contain;
         }
 
@@ -178,102 +180,138 @@
         }
 
         .header-center-info .country-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 3px;
+            font-family: 'Amiri', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 2px;
         }
 
         .header-center-info .univ-title {
-            font-size: 1.05rem;
+            font-family: 'Amiri', serif;
+            font-size: 1.12rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 3px;
+            color: #000000;
+            margin-bottom: 2px;
         }
 
         .header-center-info .faculty-title {
-            font-size: 1rem;
+            font-family: 'Amiri', serif;
+            font-size: 1.05rem;
             font-weight: 700;
-            color: #334155;
-            margin-bottom: 5px;
+            color: #000000;
+            margin-bottom: 4px;
         }
 
-        .header-center-info .master-badge {
-            display: inline-block;
+        .header-center-info .master-title-text {
+            font-family: 'Cairo', sans-serif;
             font-size: 0.88rem;
             font-weight: 700;
-            color: #0f172a;
-            border: 1px solid #94a3b8;
-            padding: 3px 12px;
-            background: #f8fafc;
+            color: #000000;
         }
 
-        /* Letter Card Body */
-        .letter-content {
-            font-family: 'Amiri', serif;
-            font-size: 1.25rem;
-            line-height: 2.1;
-            color: #0f172a;
-        }
-
+        /* Letter Administrative Metadata (From & Date) - Pure Formal Text, No Boxes */
         .letter-meta-grid {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            background: #f8fafc;
-            padding: 14px 18px;
-            border-radius: 8px;
-            border-right: 4px solid var(--primary);
+            align-items: flex-start;
+            margin-bottom: 22px;
+            font-family: 'Amiri', serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #000000;
+            background: transparent;
+            border: none;
+            padding: 0;
         }
 
-        .letter-subject {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 800;
+        .meta-from-block {
+            text-align: right;
+        }
+
+        .meta-date-block {
+            text-align: left;
+            direction: ltr;
+            font-weight: 700;
+        }
+
+        /* Addressee Centered */
+        .letter-addressee-block {
+            margin: 25px 0 20px 0;
             text-align: center;
-            color: #0f172a;
-            padding: 10px 16px;
-            background: #f8fafc;
-            margin: 20px 0;
-            border: 1.5px solid #0f172a;
+            line-height: 2;
+            font-family: 'Amiri', serif;
+        }
+
+        .addressee-main {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .addressee-sub {
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 4px;
+        }
+
+        /* Subject - Formal Underlined, No AI Boxes */
+        .letter-subject {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            color: #000000;
+            padding: 0;
+            background: transparent;
+            margin: 22px 0 24px 0;
+            border: none;
+            text-decoration: underline;
+        }
+
+        /* Letter Body & Typography */
+        .letter-content {
+            font-family: 'Amiri', serif;
+            font-size: 1.22rem;
+            line-height: 2.15;
+            color: #000000;
+        }
+
+        .letter-greeting {
+            font-family: 'Amiri', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+            color: #000000;
+        }
+
+        .letter-peace {
+            font-family: 'Amiri', serif;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+            color: #000000;
         }
 
         .letter-body {
             text-align: justify;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
-        .installments-box {
+        .letter-body p {
+            margin-bottom: 14px;
+            text-indent: 35px;
+        }
+
+        .page-footer-turn {
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #475569;
+            text-align: left;
             font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
-            background: #f8fafc;
-            border: 1px solid #334155;
-            padding: 12px 18px;
-            margin: 16px 0;
-            color: #0f172a;
-        }
-
-        .installments-box ul {
-            list-style: none;
-            padding-right: 15px;
-            margin-top: 6px;
-        }
-
-        .installments-box li {
-            position: relative;
-            padding-right: 22px;
-            margin-bottom: 6px;
-        }
-
-        .installments-box li::before {
-            content: "—";
-            position: absolute;
-            right: 0;
-            color: var(--primary);
-            font-weight: bold;
+            font-weight: 600;
         }
 
         /* PDF & Document Page Containers */
@@ -289,31 +327,21 @@
         }
 
         .pdf-page-1, .pdf-page-2 {
-            border-bottom: 2px dashed #e2e8f0;
-            padding-bottom: 35px;
-            margin-bottom: 35px;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
         }
 
         .page-running-header {
             display: none;
             justify-content: space-between;
             font-size: 0.85rem;
-            color: #64748b;
-            border-bottom: 1.5px solid #cbd5e1;
-            padding-bottom: 8px;
-            margin-bottom: 24px;
+            color: #475569;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 6px;
+            margin-bottom: 20px;
             font-family: 'Cairo', sans-serif;
             font-weight: 700;
-        }
-
-        .page-1-summary-box {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-right: 4px solid var(--primary);
-            padding: 16px 20px;
-            margin-top: 25px;
-            border-radius: 4px;
-            font-family: 'Cairo', sans-serif;
         }
 
         /* Signatures Section in Official Document */
@@ -442,22 +470,29 @@
 
         #officialDocumentWrapper.pdf-export-mode table.signatures-table th {
             white-space: nowrap !important;
-            padding: 4px 4px !important;
-            font-size: 0.78rem !important;
+            padding: 8px 6px !important;
+            font-size: 0.86rem !important;
             background: #f1f5f9 !important;
-            color: #000 !important;
+            color: #000000 !important;
+            border: 1px solid #000000 !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode table.signatures-table td {
-            padding: 2.5px 4px !important;
-            font-size: 0.78rem !important;
-            line-height: 1.15 !important;
-            border: 1px solid #cbd5e1 !important;
+            padding: 6px 6px !important;
+            font-size: 0.86rem !important;
+            line-height: 1.3 !important;
+            border: 1px solid #000000 !important;
+            height: 42px !important;
+            vertical-align: middle !important;
         }
 
         #officialDocumentWrapper.pdf-export-mode .sig-preview {
-            max-height: 22px !important;
-            max-width: 80px !important;
+            max-height: 36px !important;
+            max-width: 105px !important;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         #officialDocumentWrapper.pdf-export-mode #thActionCol,
@@ -688,20 +723,14 @@
                 padding: 10px 14px !important;
             }
 
-            .page-1-summary-box {
-                background: #f8fafc !important;
-                border: 1px solid #94a3b8 !important;
-                border-right: 4px solid #103264 !important;
-            }
-
             .table-responsive {
                 overflow: visible !important;
                 width: 100% !important;
             }
 
             table.signatures-table {
-                font-size: 0.78rem !important;
-                border: 1px solid #000 !important;
+                font-size: 0.86rem !important;
+                border: 1px solid #000000 !important;
                 width: 100% !important;
                 table-layout: fixed !important;
                 border-collapse: collapse !important;
@@ -709,18 +738,20 @@
 
             table.signatures-table th {
                 background: #f1f5f9 !important;
-                color: #000 !important;
-                border: 1px solid #000 !important;
-                padding: 4px 4px !important;
-                font-size: 0.78rem !important;
+                color: #000000 !important;
+                border: 1px solid #000000 !important;
+                padding: 8px 6px !important;
+                font-size: 0.86rem !important;
                 white-space: nowrap !important;
             }
 
             table.signatures-table td {
-                border: 1px solid #000 !important;
-                padding: 2.5px 4px !important;
-                font-size: 0.78rem !important;
-                line-height: 1.15 !important;
+                border: 1px solid #000000 !important;
+                padding: 6px 6px !important;
+                font-size: 0.86rem !important;
+                line-height: 1.3 !important;
+                height: 42px !important;
+                vertical-align: middle !important;
             }
 
             table.signatures-table tr {
@@ -729,8 +760,12 @@
             }
 
             .sig-preview {
-                max-height: 22px !important;
-                max-width: 80px !important;
+                max-height: 36px !important;
+                max-width: 105px !important;
+                width: auto;
+                height: auto;
+                display: block;
+                margin: 0 auto;
             }
         }
 
@@ -911,7 +946,7 @@
     <!-- ================= OFFICIAL DOCUMENT TO PRINT / EXPORT ================= -->
     <main id="officialDocumentWrapper" dir="rtl" style="direction: rtl; text-align: right;">
         
-        <!-- ================= PAGE 1: TITLE, LOGOS, METADATA & SUBJECT ================= -->
+        <!-- ================= PAGE 1: FORMAL REQUEST LETTER (PART 1) ================= -->
         <section class="pdf-page pdf-page-1 pdf-page-break" dir="rtl">
             <!-- Institutional Header with Official Logos -->
             <header class="institutional-header" dir="rtl">
@@ -923,8 +958,8 @@
                     <div class="country-title">المملكة المغربية</div>
                     <div class="univ-title">جامعة ابن زهر</div>
                     <div class="faculty-title">كلية الاقتصاد والتدبير - أيت ملول</div>
-                    <div class="master-badge">
-                        ماستر: <span dir="ltr">Applied Economics, Artificial Intelligence & Policy Design (2APD)</span>
+                    <div class="master-title-text">
+                        ماستر: Applied Economics, Artificial Intelligence & Policy Design (2APD)
                     </div>
                 </div>
 
@@ -933,50 +968,55 @@
             </header>
 
             <article class="letter-content" dir="rtl">
-                <!-- Meta Details -->
+                <!-- Administrative Metadata: Sender & Date (Clean Formal Layout, No Boxes) -->
                 <div class="letter-meta-grid" dir="rtl">
-                    <div>
+                    <div class="meta-from-block">
                         <strong>من:</strong> طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)<br>
-                        <strong>الشعبة:</strong> <span dir="ltr">Applied Economics, Artificial Intelligence & Policy Design (2APD)</span><br>
+                        <strong>الشعبة:</strong> Applied Economics, Artificial Intelligence & Policy Design (2APD)<br>
                         <strong>الموسم الجامعي:</strong> 2026 / 2027
                     </div>
-                    <div style="text-align: left; direction: ltr;">
-                        <strong>Aït Melloul, le:</strong> <span id="currentDateDisplay"></span>
+                    <div class="meta-date-block">
+                        <strong>أيت ملول، في:</strong> <span id="currentDateDisplay"></span>
                     </div>
                 </div>
 
-                <!-- Addressee Centered at Top -->
-                <div style="margin: 28px 0 22px 0; text-align: center; line-height: 2;">
-                    <div style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">
+                <!-- Addressee Centered -->
+                <div class="letter-addressee-block">
+                    <div class="addressee-main">
                         إلى السيد عميد كلية الاقتصاد والتدبير بأيت ملول المحترم
                     </div>
-                    <div style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-top: 6px;">
-                        تحت إشراف السيد منسق ماستر <span dir="ltr">Applied Economics, Artificial Intelligence & Policy Design (2APD)</span>
+                    <div class="addressee-sub">
+                        تحت إشراف السيد منسق ماستر Applied Economics, Artificial Intelligence & Policy Design (2APD)
                     </div>
                 </div>
 
-                <!-- Subject -->
-                <div class="letter-subject" style="margin: 22px 0 25px 0;">
+                <!-- Subject - Formal Underlined Text, No AI Boxes -->
+                <div class="letter-subject">
                     الموضوع: ملتمس بشأن أداء واجبات التكوين السنوية على دفعتين
                 </div>
 
-                <!-- Page 1 Presentation & Summary Box -->
-                <div class="page-1-summary-box" dir="rtl">
-                    <div style="font-size: 1.1rem; font-weight: 800; color: #103264; margin-bottom: 10px;">
-                        تقديم وملخص الطلب:
-                    </div>
-                    <p style="margin: 0; line-height: 2; color: #1e293b; font-size: 1.05rem;">
-                        ملتمس رسمي مرفوع من طرف طلبة السنة الثانية بسلك الماستر (فوج التوقيت الميسر)، تخصص <strong><span dir="ltr">Applied Economics, Artificial Intelligence & Policy Design (2APD)</span></strong>، قصد التفضل بالموافقة على تيسير أداء واجبات التكوين السنوية المحددة في <strong>14.000 درهم</strong>، عبر تمكين الطلبة من أدائها على <strong>دفعتين متساويتين (7.000 درهم لكل دفعة)</strong>، تزامناً مع مطلع كل فصل دراسي برسم الموسم الجامعي 2026/2027.
+                <!-- Greeting -->
+                <p class="letter-greeting">سيدي العميد المحترم،</p>
+                <p class="letter-peace">سلام تام بوجود مولانا الإمام، وبعد،</p>
+
+                <!-- Body Paragraphs 1 & 2 -->
+                <div class="letter-body">
+                    <p>
+                        يشرفنا نحن الموقعين رفقته، طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)، تخصص <strong>Applied Economics, Artificial Intelligence & Policy Design (2APD)</strong>، برسم الموسم الجامعي 2026/2027، أن نرفع إلى سيادتكم هذا الملتمس، راجين النظر بعين التيسير في صيغة أداء واجبات التكوين السنوية، المحددة في <strong>14.000 درهم (أربعة عشر ألف درهم)</strong>، والتي أُدّيت الموسم الماضي دفعة واحدة.
                     </p>
-                    <div style="margin-top: 20px; padding-top: 12px; border-top: 1px dashed #cbd5e1; font-size: 0.95rem; color: #64748b; display: flex; justify-content: space-between; align-items: center;">
-                        <span><strong>المرجع الإداري:</strong> السنة الثانية ماستر 2APD - الموسم الجامعي 2026 / 2027</span>
-                        <span style="font-weight: 700; color: #103264;">(تفاصيل نص الملتمس مدرجة بالصفحة الموالية)</span>
-                    </div>
+
+                    <p>
+                        ونحيطكم علماً، سيدي العميد، بأن أداء المبلغ دفعة واحدة وضعنا أمام إكراهات عديدة، منها التنقل ليلاً بين المدن، والمداومة على الدراسة يومي السبت والأحد، وما يترتب على ذلك من أعباء مالية، فضلاً عن التزاماتنا العائلية الثابتة. وقد أثقل ذلك كاهلنا وأثّر سلباً في تحصيلنا الأكاديمي والبحثي.
+                    </p>
+                </div>
+
+                <div class="page-footer-turn">
+                    (تتمة نص الملتمس بالصفحة الموالية)
                 </div>
             </article>
         </section>
 
-        <!-- ================= PAGE 2: REQUEST LETTER BODY & JUSTIFICATIONS ================= -->
+        <!-- ================= PAGE 2: REQUEST LETTER (PART 2) & SALUTATIONS ================= -->
         <section class="pdf-page pdf-page-2 pdf-page-break" dir="rtl">
             <!-- Running Header for Page 2 -->
             <div class="page-running-header" dir="rtl">
@@ -985,18 +1025,7 @@
             </div>
 
             <article class="letter-content" dir="rtl">
-                <p style="font-weight: bold; font-size: 1.18rem; margin-bottom: 8px;">سيدي العميد المحترم،</p>
-                <p style="text-align: center; font-weight: bold; font-size: 1.15rem; margin-bottom: 18px;">سلام تام بوجود مولانا الإمام، وبعد،</p>
-
-                <div class="letter-body">
-                    <p>
-                        يشرفنا نحن الموقعين رفقته، طلبة السنة الثانية من سلك الماستر (فوج التوقيت الميسر)، تخصص <strong><span dir="ltr">Applied Economics, Artificial Intelligence & Policy Design (2APD)</span></strong>، برسم الموسم الجامعي 2026/2027، أن نرفع إلى سيادتكم هذا الملتمس، راجين النظر بعين التيسير في صيغة أداء واجبات التكوين السنوية، المحددة في <strong>14.000 درهم (أربعة عشر ألف درهم)</strong>، والتي أُدّيت الموسم الماضي دفعة واحدة.
-                    </p>
-
-                    <p>
-                        ونحيطكم علماً، سيدي العميد، بأن أداء المبلغ دفعة واحدة وضعنا أمام إكراهات عديدة، منها التنقل ليلاً بين المدن، والمداومة على الدراسة يومي السبت والأحد، وما يترتب على ذلك من أعباء مالية، فضلاً عن التزاماتنا العائلية الثابتة. وقد أثقل ذلك كاهلنا وأثّر سلباً في تحصيلنا الأكاديمي والبحثي.
-                    </p>
-
+                <div class="letter-body" style="margin-top: 20px;">
                     <p>
                         ورغبةً منا في تجاوز أي ضائقة مالية قد تحول دون إتمام هذا السلك على الوجه المطلوب، وخاصة إنجاز بحث التخرج في المستوى الذي بلغته بقية الأفواج، بل وتحقيق التفوق، فإننا نلتمس من سيادتكم الموافقة على أداء واجبات التكوين السنوية عبر <strong>دفعتين متساويتين (7.000 درهم لكل دفعة)</strong>، تزامناً مع كل فصل دراسي.
                     </p>
@@ -1005,16 +1034,23 @@
                         ونؤكد التزامنا التام بتسوية مستحقات الدفعتين في الآجال التي تحددونها، وثقتنا كاملة في سعة صدركم وحرصكم الدائم على مصلحة الطلبة ودعمهم لمواصلة تحصيلهم العلمي في أفضل الظروف.
                     </p>
 
-                    <p style="margin-top: 22px;">
+                    <p style="margin-top: 32px;">
                         وتقبلوا منا، سيدي العميد، أسمى عبارات التقدير والاحترام.
                     </p>
 
-                    <p style="text-align: left; font-weight: bold; margin-top: 18px; font-size: 1.1rem;">والسلام عليكم ورحمة الله وبركاته.</p>
+                    <p style="text-align: left; font-weight: bold; margin-top: 24px; font-size: 1.15rem;">والسلام عليكم ورحمة الله وبركاته.</p>
 
-                    <p style="text-align: left; margin-top: 18px; font-weight: bold; color: #334155;">حرر في أيت ملول، بتاريخ ..............</p>
+                    <div style="margin-top: 45px; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div style="font-weight: bold; font-size: 1.05rem;">
+                            حرر في أيت ملول، بتاريخ ..............
+                        </div>
+                        <div style="font-weight: bold; font-size: 1.2rem; text-align: center; margin-left: 40px;">
+                            عن طلبة الفوج
+                        </div>
+                    </div>
                 </div>
 
-                <div style="margin-top: 30px; padding-top: 12px; border-top: 1px dashed #cbd5e1; font-size: 0.95rem; color: #64748b; text-align: left; font-weight: 700;">
+                <div class="page-footer-turn" style="margin-top: 60px;">
                     (تليها لائحة توقيعات طلبة الفوج بالصفحة الموالية)
                 </div>
             </article>
@@ -1030,8 +1066,8 @@
 
             <div class="signatures-heading-block">
                 <h3>لائحة توقيعات طلبة الفوج:</h3>
-                <p style="color: #64748b; font-size: 0.95rem; margin: 4px 0 0 0;">
-                    مرفق بالملتمس الموجه إلى السيد عميد كلية الاقتصاد والتدبير بأيت ملول
+                <p style="color: #334155; font-size: 1rem; margin-top: 4px; font-weight: 600;">
+                    مرفقة بالملتمس الموجه إلى السيد عميد كلية الاقتصاد والتدبير بأيت ملول
                 </p>
             </div>
             
